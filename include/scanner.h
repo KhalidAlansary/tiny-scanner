@@ -27,7 +27,7 @@ typedef enum {
   UNTIL,
   READ,
   WRITE,
-  END_OF_FILE
+  END_OF_FILE,
 } TokenType;
 
 typedef struct {
