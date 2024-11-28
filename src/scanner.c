@@ -1,9 +1,10 @@
-#include "scanner.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
-TokenType checkReservedWord(const char* lexeme) {
+#include "scanner.h"
+
+static TokenType checkReservedWord(const char* lexeme) {
   if (strcmp(lexeme, "if") == 0)
     return IF;
   if (strcmp(lexeme, "then") == 0)
@@ -73,6 +74,7 @@ Token getNextToken(FILE* file) {
           }
           continue;
         } else {
+          fprintf(stderr, "Invalid character: %c\n", current_char);
           return (Token){ERROR, "Invalid character"};
         }
     }

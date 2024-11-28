@@ -3,7 +3,7 @@
 
 #include "scanner.h"
 
-const char* tokenTypeToString(TokenType type) {
+static const char* tokenTypeToString(TokenType type) {
   switch (type) {
     case ADD:
       return "ADD";
