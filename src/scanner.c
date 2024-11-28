@@ -102,7 +102,7 @@ Token getNextToken(FILE* file) {
       case INASSIGN: {
         buffer[index++] = fgetc(file);
         if (strcmp(buffer, ":=") == 0) {
-          return (Token){EQ, strdup(buffer)};
+          return (Token){ASSIGN, strdup(buffer)};
         } else {
           return (Token){ERROR, "Invalid character"};
         }
