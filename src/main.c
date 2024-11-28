@@ -65,12 +65,12 @@ int main(int argc, char* argv[]) {
     return EXIT_FAILURE;
   }
 
-  Token token = getNextToken(file);
-  while (token.type != END_OF_FILE) {
+  Token token;
+  do {
+    token = getNextToken(file);
     printf("Token: %s, Lexeme: %s\n", tokenTypeToString(token.type),
            token.lexeme);
-    token = getNextToken(file);
-  }
+  } while (token.type != END_OF_FILE);
 
   fclose(file);
 
