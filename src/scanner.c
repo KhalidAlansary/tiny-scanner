@@ -84,7 +84,6 @@ Token getNextToken(FILE* file) {
         while (isdigit(current_char = fgetc(file))) {
           buffer[index++] = current_char;
         }
-        buffer[index] = '\0';
         ungetc(current_char, file);
         return (Token){NUM, strdup(buffer)};
       }
@@ -93,7 +92,6 @@ Token getNextToken(FILE* file) {
         while (isalpha(current_char = fgetc(file))) {
           buffer[index++] = current_char;
         }
-        buffer[index] = '\0';
         ungetc(current_char, file);
         TokenType type = checkReservedWord(buffer);
         return (Token){type, strdup(buffer)};

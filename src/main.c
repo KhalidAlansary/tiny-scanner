@@ -23,6 +23,8 @@ static const char* tokenTypeToString(TokenType type) {
       return "RPAREN";
     case SEMI:
       return "SEMI";
+    case ASSIGN:
+      return "ASSIGN";
     case ID:
       return "ID";
     case NUM:
