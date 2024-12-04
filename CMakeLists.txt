@@ -7,6 +7,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 
 include_directories(include)
 
-add_executable(scanner src/main.c src/scanner.c)
+add_executable(scanner src/main.c src/scanner.c src/parser.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

@@ -1,58 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "scanner.h"
+#include "parser.h"
 
-static const char* tokenTypeToString(TokenType type) {
-  switch (type) {
-    case ADD:
-      return "ADD";
-    case SUB:
-      return "SUB";
-    case MUL:
-      return "MUL";
-    case DIV:
-      return "DIV";
-    case EQ:
-      return "EQ";
-    case LT:
-      return "LT";
-    case LPAREN:
-      return "LPAREN";
-    case RPAREN:
-      return "RPAREN";
-    case SEMI:
-      return "SEMI";
-    case ASSIGN:
-      return "ASSIGN";
-    case ID:
-      return "ID";
-    case NUM:
-      return "NUM";
-    case ERROR:
-      return "ERROR";
-    case IF:
-      return "IF";
-    case THEN:
-      return "THEN";
-    case ELSE:
-      return "ELSE";
-    case END:
-      return "END";
-    case REPEAT:
-      return "REPEAT";
-    case UNTIL:
-      return "UNTIL";
-    case READ:
-      return "READ";
-    case WRITE:
-      return "WRITE";
-    case END_OF_FILE:
-      return "END_OF_FILE";
-    default:
-      return "UNKNOWN";
-  }
-}
+FILE* file;
 
 int main(int argc, char* argv[]) {
   char* filename = "../tests/test.tiny";
@@ -61,20 +12,15 @@ int main(int argc, char* argv[]) {
     filename = argv[1];
   }
 
-  FILE* file = fopen(filename, "r");
+  file = fopen(filename, "r");
   if (file == NULL) {
     perror("Error opening file");
     return EXIT_FAILURE;
   }
 
-  Token token;
-  do {
-    token = getNextToken(file);
-    printf("Token: %s, Lexeme: %s\n", tokenTypeToString(token.type),
-           token.lexeme);
-  } while (token.type != END_OF_FILE);
+  Node* root = program();
 
-  fclose(file);
+  printf("root.type = %d\n", root->type);
 
   return EXIT_SUCCESS;
 }

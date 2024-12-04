@@ -1,8 +1,6 @@
 #ifndef SCANNER_H
 #define SCANNER_H
 
-#include <stdio.h>
-
 #define MAX_LEXEME_SIZE 100
 
 /**
@@ -59,6 +57,13 @@ typedef enum {
  * @param file The file to read from.
  * @return Token The next token.
  */
-Token getNextToken(FILE* file);
+Token getNextToken();
 
+/**
+ * @brief Convert a token type to a string.
+ *
+ * @param type The token type.
+ * @return const char* The string representation of the token type.
+ */
+const char* tokenTypeToString(TokenType type);
 #endif

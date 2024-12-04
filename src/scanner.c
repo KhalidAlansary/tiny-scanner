@@ -4,6 +4,8 @@
 
 #include "scanner.h"
 
+extern FILE* file;
+
 static TokenType checkReservedWord(const char* lexeme) {
   if (strcmp(lexeme, "if") == 0)
     return IF;
@@ -24,7 +26,7 @@ static TokenType checkReservedWord(const char* lexeme) {
   return ID;
 }
 
-Token getNextToken(FILE* file) {
+Token getNextToken() {
   char current_char;
   State current_state = START;
 
@@ -112,4 +114,55 @@ Token getNextToken(FILE* file) {
   }
 
   return (Token){END_OF_FILE, "EOF"};
+}
+
+const char* tokenTypeToString(TokenType type) {
+  switch (type) {
+    case ADD:
+      return "ADD";
+    case SUB:
+      return "SUB";
+    case MUL:
+      return "MUL";
+    case DIV:
+      return "DIV";
+    case EQ:
+      return "EQ";
+    case LT:
+      return "LT";
+    case LPAREN:
+      return "LPAREN";
+    case RPAREN:
+      return "RPAREN";
+    case SEMI:
+      return "SEMI";
+    case ASSIGN:
+      return "ASSIGN";
+    case ID:
+      return "ID";
+    case NUM:
+      return "NUM";
+    case ERROR:
+      return "ERROR";
+    case IF:
+      return "IF";
+    case THEN:
+      return "THEN";
+    case ELSE:
+      return "ELSE";
+    case END:
+      return "END";
+    case REPEAT:
+      return "REPEAT";
+    case UNTIL:
+      return "UNTIL";
+    case READ:
+      return "READ";
+    case WRITE:
+      return "WRITE";
+    case END_OF_FILE:
+      return "END_OF_FILE";
+    default:
+      return "UNKNOWN";
+  }
 }
