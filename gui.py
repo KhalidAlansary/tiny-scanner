@@ -2,8 +2,12 @@ import json
 import subprocess
 import tkinter as tk
 from tkinter import filedialog, ttk
+from PIL import Image, ImageTk
 
 import graphviz
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+from io import BytesIO
 
 TERMINALS = [
     "OP",
@@ -20,7 +24,7 @@ class GUI:
     def __init__(self) -> None:
         self.root = tk.Tk()
         self.root.title("Tiny Parser")
-        self.root.geometry("1200x900")
+        self.root.geometry("900x800")
         self.dot = graphviz.Digraph(comment="Parse Tree")
         self.count = 0
 
@@ -39,6 +43,10 @@ class GUI:
         chosen_file_label.pack()
         chose_file_button.pack()
         parse_button.pack()
+
+        # Create a canvas to display the parse tree image
+        self.canvas = tk.Canvas(self.root, width=800, height=600)
+        self.canvas.pack()
 
         self.root.mainloop()
 
@@ -88,7 +96,22 @@ class GUI:
     def display_parse_tree(self, json_data):
         print(json_data["value"])
         self.add_subtree(json_data)
-        self.dot.render("parse_tree", format="png", view=True)
+        
+        # Render the dot object to a PNG image in memory
+        png_data = self.dot.pipe(format='png')
+        
+        # Read the PNG image from memory
+        image = Image.open(BytesIO(png_data))
+        photo = ImageTk.PhotoImage(image)
+
+        width, height = image.size
+
+        # Resize the canvas to fit the image
+        self.canvas.config(width=width, height=height)
+        
+        # Display the image on the canvas,
+        self.canvas.create_image(0, 0, anchor=tk.NW,image=photo)
+        self.canvas.image = photo  # Keep a reference to avoid garbage collection
 
 
 def shape(node_type: str) -> str:
