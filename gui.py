@@ -6,9 +6,9 @@ from tkinter import filedialog, ttk
 import graphviz
 
 TERMINALS = [
-    "NODE_OP",
-    "NODE_CONST",
-    "NODE_ID",
+    "OP",
+    "CONST",
+    "ID",
 ]
 
 
@@ -65,6 +65,9 @@ class GUI:
         current_node_type = json_data.get("type", "")[5:]
         current_node_value = json_data.get("value", "")
         current_node_text = f"{current_node_id}\n{current_node_type}\n{current_node_value}"
+
+        current_node_shape = shape(current_node_type)
+        self.dot.node(current_node_text, shape=current_node_shape)
 
         for key in ["left", "right"]:
             child_node_text = self.add_subtree(json_data.get(key))
