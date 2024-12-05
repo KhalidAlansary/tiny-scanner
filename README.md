@@ -6,6 +6,7 @@
 
 - [GCC](https://gcc.gnu.org/)
 - [CMake](https://cmake.org/)
+- [cJSON](https://github.com/DaveGamble/cJSON)
 
 ### Instructions
 
@@ -30,4 +31,3 @@
    ./scanner [file]
    ```
    - `[file]` is an optional command line argument.
-

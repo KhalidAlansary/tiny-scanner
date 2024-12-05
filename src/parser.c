@@ -215,3 +215,24 @@ Node* parse() {
   current_token = getNextToken();
   return program();
 }
+
+const char* nodeTypeToString(NodeType type) {
+  switch (type) {
+    case NODE_ASSIGN:
+      return "NODE_ASSIGN";
+    case NODE_CONST:
+      return "NODE_CONST";
+    case NODE_ID:
+      return "NODE_ID";
+    case NODE_IF:
+      return "NODE_IF";
+    case NODE_OP:
+      return "NODE_OP";
+    case NODE_READ:
+      return "NODE_READ";
+    case NODE_REPEAT:
+      return "NODE_REPEAT";
+    default:
+      return "UNKNOWN";
+  }
+}

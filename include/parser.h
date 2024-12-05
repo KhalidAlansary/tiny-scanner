@@ -120,4 +120,15 @@ Node* term();
  */
 Node* factor();
 
+/**
+ * @brief Convert a node type to a string.
+ *
+ * This function converts a node type to a string.
+ *
+ * @param type The node type.
+ *
+ * @return const char* The string representation of the node type.
+ */
+const char* nodeTypeToString(NodeType type);
+
 #endif
