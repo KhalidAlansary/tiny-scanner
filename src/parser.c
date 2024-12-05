@@ -75,7 +75,12 @@ Node* statement() {
       break;
     case WRITE:
       match(WRITE);
-      node = expr();
+      node = (Node*)malloc(sizeof(Node));
+      if (!node) {
+        malloc_error();
+      }
+      node->type = NODE_WRITE;
+      node->left = expr();
       break;
     default:
       fprintf(stderr, "Error: Expected IF, REPEAT, or IDENTIFIER, got %s\n",
@@ -232,6 +237,8 @@ const char* nodeTypeToString(NodeType type) {
       return "NODE_READ";
     case NODE_REPEAT:
       return "NODE_REPEAT";
+    case NODE_WRITE:
+      return "NODE_WRITE";
     default:
       return "UNKNOWN";
   }
