@@ -11,6 +11,19 @@ static void malloc_error() {
   exit(EXIT_FAILURE);
 }
 
+static Node* create_node(const NodeType type) {
+  Node* node = (Node*)malloc(sizeof(Node));
+  if (!node) {
+    malloc_error();
+  }
+  node->type = type;
+  node->value = NULL;
+  node->left = NULL;
+  node->right = NULL;
+  node->next = NULL;
+  return node;
+}
+
 static void match(TokenType expected) {
   if (current_token.type == expected) {
     current_token = getNextToken();
@@ -65,21 +78,13 @@ Node* statement() {
       break;
     case READ:
       match(READ);
-      node = (Node*)malloc(sizeof(Node));
-      if (!node) {
-        malloc_error();
-      }
-      node->type = NODE_READ;
+      node = create_node(NODE_READ);
       node->value = current_token.lexeme;
       match(ID);
       break;
     case WRITE:
       match(WRITE);
-      node = (Node*)malloc(sizeof(Node));
-      if (!node) {
-        malloc_error();
-      }
-      node->type = NODE_WRITE;
+      node = create_node(NODE_WRITE);
       node->left = expr();
       break;
     default:
@@ -91,8 +96,7 @@ Node* statement() {
 }
 
 Node* if_stmt() {
-  Node* node = (Node*)malloc(sizeof(Node));
-  node->type = NODE_IF;
+  Node* node = create_node(NODE_IF);
   match(IF);
   node->left = expr();
   match(THEN);
@@ -106,11 +110,7 @@ Node* if_stmt() {
 }
 
 Node* repeat_stmt() {
-  Node* node = (Node*)malloc(sizeof(Node));
-  if (!node) {
-    malloc_error();
-  }
-  node->type = NODE_REPEAT;
+  Node* node = create_node(NODE_REPEAT);
   match(REPEAT);
   node->left = stmt_sequence();
   match(UNTIL);
@@ -119,11 +119,7 @@ Node* repeat_stmt() {
 }
 
 Node* assign_stmt() {
-  Node* node = (Node*)malloc(sizeof(Node));
-  if (!node) {
-    malloc_error();
-  }
-  node->type = NODE_ASSIGN;
+  Node* node = create_node(NODE_ASSIGN);
   node->value = current_token.lexeme;
   match(ID);
   match(ASSIGN);
@@ -134,11 +130,7 @@ Node* assign_stmt() {
 Node* expr() {
   Node* node = simple_expr();
   if (current_token.type == LT || current_token.type == EQ) {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    if (!temp) {
-      malloc_error();
-    }
-    temp->type = NODE_OP;
+    Node* temp = create_node(NODE_OP);
     temp->value = current_token.lexeme;
     temp->left = node;
     node = temp;
@@ -151,11 +143,7 @@ Node* expr() {
 Node* simple_expr() {
   Node* node = term();
   while (current_token.type == ADD || current_token.type == SUB) {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    if (!temp) {
-      malloc_error();
-    }
-    temp->type = NODE_OP;
+    Node* temp = create_node(NODE_OP);
     temp->value = current_token.lexeme;
     temp->left = node;
     node = temp;
@@ -168,11 +156,7 @@ Node* simple_expr() {
 Node* term() {
   Node* node = factor();
   while (current_token.type == MUL || current_token.type == DIV) {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    if (!temp) {
-      malloc_error();
-    }
-    temp->type = NODE_OP;
+    Node* temp = create_node(NODE_OP);
     temp->value = current_token.lexeme;
     temp->left = node;
     node = temp;
@@ -186,20 +170,12 @@ Node* factor() {
   Node* node = NULL;
   switch (current_token.type) {
     case NUM:
-      node = (Node*)malloc(sizeof(Node));
-      if (!node) {
-        malloc_error();
-      }
-      node->type = NODE_CONST;
+      node = create_node(NODE_CONST);
       node->value = current_token.lexeme;
       match(NUM);
       break;
     case ID:
-      node = (Node*)malloc(sizeof(Node));
-      if (!node) {
-        malloc_error();
-      }
-      node->type = NODE_ID;
+      node = create_node(NODE_ID);
       node->value = current_token.lexeme;
       match(ID);
       break;

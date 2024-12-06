@@ -7,10 +7,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 
 include_directories(include)
 
-find_package(cJSON REQUIRED)
-find_library(CJSON_LIBRARIES NAMES cjson)
-
-add_executable(parser src/main.c src/scanner.c src/parser.c)
-target_link_libraries(parser ${CJSON_LIBRARIES})
+add_executable(parser src/main.c src/scanner.c src/parser.c src/util.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
