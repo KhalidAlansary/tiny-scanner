@@ -1,5 +1,8 @@
 # Tiny Scanner
 
+## Demo
+![demo](https://github.com/user-attachments/assets/76ba1cf4-c8c2-483c-934e-ed950f13f082)
+
 ## How to Build and Run
 
 ### Prerequisites
