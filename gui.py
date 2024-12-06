@@ -1,13 +1,12 @@
 import json
+import os
 import subprocess
 import tkinter as tk
+from io import BytesIO
 from tkinter import filedialog, ttk
-from PIL import Image, ImageTk
 
 import graphviz
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-from io import BytesIO
+from PIL import Image, ImageTk
 
 TERMINALS = [
     "OP",
@@ -30,6 +29,9 @@ class GUI:
 
         # The file to parse
         self.file = tk.StringVar(value="tests/test.tiny")
+
+        # Path to the parser binary
+        self.parser_path = os.path.join("build", "parser")
 
         label1 = ttk.Label(self.root, text="Chosen file:")
         chosen_file_label = ttk.Label(self.root, textvariable=self.file)
@@ -57,7 +59,7 @@ class GUI:
     def parse_file(self):
         file_path = self.file.get()
         try:
-            subprocess.run(["./build/parser", file_path], check=True)
+            subprocess.run([self.parser_path, file_path], check=True)
             with open("parse_tree.json", "r", encoding="utf-8") as json_file:
                 json_data = json.load(json_file)
                 self.display_parse_tree(json_data)
@@ -72,7 +74,9 @@ class GUI:
         self.count += 1
         current_node_type = json_data.get("type", "")[5:]
         current_node_value = json_data.get("value", "")
-        current_node_text = f"{current_node_id}\n{current_node_type}\n{current_node_value}"
+        current_node_text = (
+            f"{current_node_id}\n{current_node_type}\n{current_node_value}"
+        )
 
         current_node_shape = shape(current_node_type)
         self.dot.node(current_node_text, shape=current_node_shape)
@@ -96,10 +100,10 @@ class GUI:
     def display_parse_tree(self, json_data):
         print(json_data["value"])
         self.add_subtree(json_data)
-        
+
         # Render the dot object to a PNG image in memory
-        png_data = self.dot.pipe(format='png')
-        
+        png_data = self.dot.pipe(format="png")
+
         # Read the PNG image from memory
         image = Image.open(BytesIO(png_data))
         photo = ImageTk.PhotoImage(image)
@@ -108,9 +112,9 @@ class GUI:
 
         # Resize the canvas to fit the image
         self.canvas.config(width=width, height=height)
-        
+
         # Display the image on the canvas,
-        self.canvas.create_image(0, 0, anchor=tk.NW,image=photo)
+        self.canvas.create_image(0, 0, anchor=tk.NW, image=photo)
         self.canvas.image = photo  # Keep a reference to avoid garbage collection
 
 
