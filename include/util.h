@@ -5,6 +5,4 @@
 
 void free_tree(Node* node);
 
-void print_tree_to_json(Node* root);
-
 #endif
