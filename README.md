@@ -1,6 +1,7 @@
 # Tiny Scanner
 
 ## Demo
+
 ![demo](https://github.com/user-attachments/assets/76ba1cf4-c8c2-483c-934e-ed950f13f082)
 
 ## How to Build and Run
@@ -8,29 +9,26 @@
 ### Prerequisites
 
 - [GCC](https://gcc.gnu.org/)
-- [CMake](https://cmake.org/)
-- [cJSON](https://github.com/DaveGamble/cJSON)
+- [CMake](https://cmake.org/download/)
+- [Python](https://www.python.org/)
 
-### Instructions
+### Install python dependencies
 
-1. Create a build directory
+```sh
+pip install -r requirements.txt
+```
+
+### Build and Run
+
+1. Run cmake:
    ```sh
-   mkdir build
+   cmake -B build
    ```
-2. Navigate into the build directory:
+2. Build the project:
    ```sh
-   cd build
+   make -C build
    ```
-3. Generate the build files using CMake:
+3. Run the project:
    ```sh
-   cmake ..
+   python app.py
    ```
-4. Build the project:
-   ```sh
-   make
-   ```
-5. Run the executable:
-   ```sh
-   ./scanner [file]
-   ```
-   - `[file]` is an optional command line argument.
