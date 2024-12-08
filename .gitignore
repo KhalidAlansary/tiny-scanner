@@ -212,3 +212,5 @@ cython_debug/
 
 .cache/
 build/
+
+parse_tree.*
