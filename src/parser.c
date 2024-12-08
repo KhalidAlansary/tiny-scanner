@@ -200,21 +200,21 @@ Node* parse() {
 const char* nodeTypeToString(NodeType type) {
   switch (type) {
     case NODE_ASSIGN:
-      return "NODE_ASSIGN";
+      return "ASSIGN";
     case NODE_CONST:
-      return "NODE_CONST";
+      return "CONST";
     case NODE_ID:
-      return "NODE_ID";
+      return "ID";
     case NODE_IF:
-      return "NODE_IF";
+      return "IF";
     case NODE_OP:
-      return "NODE_OP";
+      return "OP";
     case NODE_READ:
-      return "NODE_READ";
+      return "READ";
     case NODE_REPEAT:
-      return "NODE_REPEAT";
+      return "REPEAT";
     case NODE_WRITE:
-      return "NODE_WRITE";
+      return "WRITE";
     default:
       return "UNKNOWN";
   }
