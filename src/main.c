@@ -57,6 +57,13 @@ static Agnode_t* add_subtree(Agraph_t* g, Node* node) {
     if (left_node) {
       Agedge_t* e = agedge(g, gv_node, left_node, NULL, 1);
       agsafeset(e, "constraint", "true", "");
+
+      // Create subgraph for left child to enforce rank separation
+      char subg_name[32];
+      snprintf(subg_name, sizeof(subg_name), "rank_sep_left%d", node_count);
+      Agraph_t* subg = agsubg(g, subg_name, 1);
+      agsubnode(subg, left_node, 1);
+      agsafeset(subg, "rank", "same", "");
     }
   }
 
@@ -66,6 +73,13 @@ static Agnode_t* add_subtree(Agraph_t* g, Node* node) {
     if (right_node) {
       Agedge_t* e = agedge(g, gv_node, right_node, NULL, 1);
       agsafeset(e, "constraint", "true", "");
+
+      // Create subgraph for right child to enforce rank separation
+      char subg_name[32];
+      snprintf(subg_name, sizeof(subg_name), "rank_sep_right%d", node_count);
+      Agraph_t* subg = agsubg(g, subg_name, 1);
+      agsubnode(subg, right_node, 1);
+      agsafeset(subg, "rank", "same", "");
     }
   }
 
@@ -77,7 +91,9 @@ static Agnode_t* add_subtree(Agraph_t* g, Node* node) {
       agsafeset(e, "constraint", "true", "");
 
       // Create invisible subgraph for same rank
-      Agraph_t* subg = agsubg(g, "same_rank", 1);
+      char subg_name[32];
+      snprintf(subg_name, sizeof(subg_name), "same_rank%d", node_count);
+      Agraph_t* subg = agsubg(g, subg_name, 1);
       agsubnode(subg, gv_node, 1);
       agsubnode(subg, next_node, 1);
       agsafeset(subg, "rank", "same", "");
