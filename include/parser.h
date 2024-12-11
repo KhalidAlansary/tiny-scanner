@@ -129,6 +129,6 @@ Node* factor();
  *
  * @return const char* The string representation of the node type.
  */
-const char* nodeTypeToString(NodeType type);
+char* nodeTypeToString(NodeType type);
 
 #endif

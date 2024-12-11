@@ -197,7 +197,7 @@ Node* parse() {
   return program();
 }
 
-const char* nodeTypeToString(NodeType type) {
+char* nodeTypeToString(NodeType type) {
   switch (type) {
     case NODE_ASSIGN:
       return "ASSIGN";
