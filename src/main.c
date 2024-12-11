@@ -47,14 +47,15 @@ static Agnode_t* add_subtree(Agraph_t* g, Node* node) {
   // Create the node
   Agnode_t* gv_node = agnode(g, node_id, 1);
   agsafeset(gv_node, "label", node_value, "");
-  agsafeset(gv_node, "shape", node->type >= NODE_OP ? "oval" : "box", "");
+  if (node->type >= NODE_OP) {
+    agsafeset(gv_node, "shape", "oval", "");
+  }
 
   // Process left child
   if (node->left) {
     Agnode_t* left_node = add_subtree(g, node->left);
     if (left_node) {
       Agedge_t* e = agedge(g, gv_node, left_node, NULL, 1);
-      agsafeset(e, "weight", "2", "");  // Higher weight for hierarchical edges
       agsafeset(e, "constraint", "true", "");
     }
   }
@@ -64,7 +65,6 @@ static Agnode_t* add_subtree(Agraph_t* g, Node* node) {
     Agnode_t* right_node = add_subtree(g, node->right);
     if (right_node) {
       Agedge_t* e = agedge(g, gv_node, right_node, NULL, 1);
-      agsafeset(e, "weight", "2", "");  // Higher weight for hierarchical edges
       agsafeset(e, "constraint", "true", "");
     }
   }
@@ -75,7 +75,6 @@ static Agnode_t* add_subtree(Agraph_t* g, Node* node) {
     if (next_node) {
       Agedge_t* e = agedge(g, gv_node, next_node, NULL, 1);
       agsafeset(e, "constraint", "true", "");
-      agsafeset(e, "weight", "1", "");  // Lower weight for sibling edges
 
       // Create invisible subgraph for same rank
       Agraph_t* subg = agsubg(g, "same_rank", 1);
@@ -97,7 +96,6 @@ static void display_graph(GtkWindow* parent_window) {
   Agraph_t* g = agopen("g", Agdirected, NULL);
 
   // Set graph attributes
-  agattr(g, AGRAPH, "rankdir", "TB");
   agattr(g, AGRAPH, "splines", "ortho");
   agattr(g, AGRAPH, "nodesep", "0.5");  // Minimum space between nodes
   agattr(g, AGRAPH, "ranksep", "0.8");  // Minimum space between ranks
