@@ -1,34 +1,39 @@
-# Tiny Scanner
+# Tiny Parser
+
+## Overview
+
+Tiny Parser is a simple parser for tiny language that displays the parse tree of the input code.
 
 ## Demo
 
 ![demo](https://github.com/user-attachments/assets/76ba1cf4-c8c2-483c-934e-ed950f13f082)
 
-## How to Build and Run
+## Setup Development Environment
 
-### Prerequisites
+### Linux
 
-- [GCC](https://gcc.gnu.org/)
-- [CMake](https://cmake.org/download/)
-- [Python](https://www.python.org/)
+#### Ubuntu and Debian-based systems
 
-### Install python dependencies
-
-```sh
-pip install -r requirements.txt
-```
-
-### Build and Run
-
-1. Run cmake:
+1. Install the necessary development tools:
    ```sh
-   cmake -B build
+   sudo apt-get update
+   sudo apt-get install build-essential cmake graphviz
    ```
-2. Build the project:
+
+#### Arch-based systems
+
+1. Install the necessary development tools:
    ```sh
-   make -C build
+   sudo pacman -Syu base-devel cmake graphviz
    ```
-3. Run the project:
+
+### Windows
+
+1. Open PowerShell and paste the following to install the necessary tools:
    ```sh
-   python app.py
+   winget install MSYS2.MSYS2 Kitware.CMake Graphviz.Graphviz
+   ```
+2. Open the MSYS2 UCRT64 shell and install the necessary packages:
+   ```sh
+   pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
    ```

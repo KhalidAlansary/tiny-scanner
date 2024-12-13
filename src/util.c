@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,3 +16,6 @@ void free_tree(Node* node) {
   free_tree(node->right);
   free(node);
 }
+#ifdef __cplusplus
+}
+#endif
