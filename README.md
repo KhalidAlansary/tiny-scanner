@@ -6,7 +6,7 @@ Tiny Parser is a simple parser for tiny language that displays the parse tree of
 
 ## Demo
 
-![demo](https://github.com/user-attachments/assets/76ba1cf4-c8c2-483c-934e-ed950f13f082)
+![demo](https://github.com/user-attachments/assets/d8cee6d0-731c-4b4d-bddd-5a19b12d9e64)
 
 ## Setup Development Environment
 
